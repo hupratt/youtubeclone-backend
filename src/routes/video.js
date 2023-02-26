@@ -12,7 +12,10 @@ const {
   newView,
   searchVideo,
 } = require("../controllers/video");
+const videoUploadController = require('../controllers/video-upload-controller');
 
+router.route('/upload').get(videoUploadController.initUploadPage);
+router.route('/upload').post(protect, videoUploadController.uploadFile);
 router.route("/").post(protect, newVideo);
 router.route("/").get(recommendedVideos);
 router.route("/search").get(protect, searchVideo);

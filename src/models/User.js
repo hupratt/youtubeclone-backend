@@ -39,12 +39,12 @@ module.exports = (sequelize, DataTypes) => {
     avatar: {
       type: DataTypes.STRING,
       defaultValue:
-        "https://res.cloudinary.com/tylerdurden/image/upload/v1602657481/random/pngfind.com-default-image-png-6764065_krremh.png",
+        "https://generic-f1492f08-f236-4a55-afb7-70ded209cb29.s3.eu-west-2.amazonaws.com/images/profile.2e16d0ba.fill-50x50.jpg",
     },
     cover: {
       type: DataTypes.STRING,
       defaultValue:
-        "https://res.cloudinary.com/tylerdurden/image/upload/v1617334073/random/Rectangle_2_mbyujf.png",
+        "https://generic-f1492f08-f236-4a55-afb7-70ded209cb29.s3.eu-west-2.amazonaws.com/images/cover.jpeg",
     },
     channelDescription: {
       type: DataTypes.STRING,
