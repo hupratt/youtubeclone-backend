@@ -64,98 +64,12 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  '1963-1984/VTS_01_0.m4v',
-'1963-1984/VTS_01_1.m4v',
-'1963-1984/VTS_01_2.m4v',
-'1963-1984/VTS_01_3.m4v',
-'1999 part 1/VTS_01_3.m4v',
-'1999 part 1/VTS_01_2.m4v',
-'1999 part 1/VTS_01_1.m4v',
-'1999 part 1/VTS_01_4.m4v',
-'1999 part 2/VTS_01_5.m4v',
-'1999 part 2/VTS_01_4.m4v',
-'1999 part 2/VTS_01_3.m4v',
-'1999 part 2/VTS_01_2.m4v',
-'1999 part 2/VTS_01_1.m4v',
-'1999 part 2/VTS_01_1 (copy).m4v',
-'2000/VTS_01_2.m4v',
-'2000/VTS_01_1.m4v',
-'2000/VTS_01_3.m4v',
-'2000/VTS_01_4.m4v',
-'2000/VTS_01_5.m4v',
-'2003/VTS_01_1.m4v',
-'abril 2003/VTS_01_3.m4v',
-'abril 2003/VTS_01_4.m4v',
-'abril 2003/VTS_01_1.m4v',
-'abril 2003/VTS_01_5.m4v',
-'abril 2003/VTS_01_2.m4v',
-'avril 2004/VTS_01_3.m4v',
-'avril 2004/VTS_01_1.m4v',
-'avril 2004/VTS_01_0.m4v',
-'avril 2004/VTS_01_2.m4v',
-'avril 2008/VTS_01_1.m4v',
-'avril 2008/VTS_01_2.m4v',
-'concert 2006/VTS_01_3.m4v',
-'concert 2006/dance.mp4',
-'concert 2006/VTS_01_4.m4v',
-'concert 2006/sara.mp4',
-'concert 2006/VTS_01_2.m4v',
-'concert 2006/VTS_01_1.m4v',
-'dec 2007/VTS_01_3.m4v',
-'dec 2007/VTS_01_1.m4v',
-'dec 2007/VTS_01_2.m4v',
-'jan 2005/Brand Witlock 56_NEW.m4v',
-'mai 2004/VTS_01_2.m4v',
-'mai 2004/VTS_01_1.m4v',
-'mai 2004/VTS_01_4.m4v',
-'mai 2004/VTS_01_3.m4v',
-'mai 2004/VTS_01_5.m4v',
-'natal 2003 part 2/VTS_01_2.m4v',
-'natal 2003 part 2/VTS_01_4.m4v',
-'natal 2003 part 2/VTS_01_3.m4v',
-'natal 2003 part 2/VTS_01_5.m4v',
-'natal 2003 part 2/VTS_01_1.m4v',
-'verao 2004/VTS_01_2.m4v',
-'verao 2004/VTS_01_1.m4v',
-'verao 2004/VTS_01_3.m4v',
-'verao 2004/VTS_01_0.m4v',
-'verao 2004/VTS_01_4.m4v',
-'verao 2004/VTS_01_5.m4v',
-'verao 2005/VTS_01_2.m4v',
-'verao 2005/VTS_01_4.m4v',
-'verao 2005/VTS_01_5.m4v',
-'verao 2005/VTS_01_1.m4v',
-'verao 2005/VTS_01_3.m4v',
-'verao 2006 part 1/VTS_01_4.m4v',
-'verao 2006 part 1/VTS_01_3.m4v',
-'verao 2006 part 1/VTS_01_1.m4v',
-'verao 2006 part 1/VTS_01_2.m4v',
-'verao 2006 part 2/VTS_01_2.m4v',
-'verao 2006 part 2/VTS_01_1 (1).m4v',
-'huh.mp4',
-'2008/VTS_01_1.mp4',
-'2008/VTS_01_2.mp4',
-'2008/VTS_01_1 natal.mp4',
-'2008/VTS_01_2 natal.mp4'
-
+  'Rihab german lessons/2023-01-25 20-21-03.mp4',
+  'Rihab german lessons/2023-01-31 19-39-23.mp4',
+  'Rihab german lessons/2023-02-03 19-44-10.mp4',
+  'Rihab german lessons/2023-01-24 20-35-52.mp4',
+  'Rihab german lessons/2023-02-27 19-27-29.mp4',
 ]
-
-
-
-// var csvData=[];
-// fs.createReadStream(path.join(__dirname,"migration_data.csv"))
-//   .pipe(parse({ delimiter: "," }))
-//   .on("data", function (row) {
-//     console.log(row);
-//     csvData.push(row);  
-//   })
-//   .on("end", function () {
-//     console.log("finished");
-//   })
-//   .on("error", function (error) {
-//     console.log(error.message);
-//   });
-
 
 
 async function asyncCall(relPath) {
