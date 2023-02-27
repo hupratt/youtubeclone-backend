@@ -10,7 +10,7 @@ const errorHandler = require("./middlewares/errorHandler");
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: true }));
 
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/admin", admin);
