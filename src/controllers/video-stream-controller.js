@@ -7,6 +7,10 @@ function getFile(file_name, callback){
   fs.readFile(path.resolve(process.env.FILE_UPLOAD_PATH, file_name), callback);
 }
 
+module.exports.serveFrontEnd = function(req, res) {
+  res.sendFile(path.resolve(__dirname + '/../../public/frontend/build/index.html'));
+}
+
 function streamVideoFile(req, res, video_file){
   const path = process.env.FILE_UPLOAD_PATH + req.params.file_name;
   const total = video_file.length;

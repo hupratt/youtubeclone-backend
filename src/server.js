@@ -16,6 +16,7 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/admin", admin);
 app.use("/api/v1/videos", video);
 app.use("/api/v1/users", user);
+app.use(express.static('public/frontend/build'))
 
 app.use(errorHandler);
 
