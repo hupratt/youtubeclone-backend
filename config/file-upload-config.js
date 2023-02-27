@@ -37,7 +37,6 @@ const storage = multer.diskStorage({
 });
 
 const fileUploadConfig = {
-  fileFilter: fileFilter,
   storage: storage,
   limits: limits
 };

@@ -6,6 +6,8 @@ const admin = require("./routes/admin");
 const video = require("./routes/video");
 const user = require("./routes/user");
 const errorHandler = require("./middlewares/errorHandler");
+var fs = require('fs');
+var path = require('path');
 
 const app = express();
 
@@ -17,6 +19,10 @@ app.use("/api/v1/admin", admin);
 app.use("/api/v1/videos", video);
 app.use("/api/v1/users", user);
 app.use(express.static('public/frontend/build'))
+app.all('*', function(req, res) {
+    const jsonPath = path.join(__dirname, '..', 'public', 'frontend', 'build','index.html');
+    res.sendFile(path.resolve(jsonPath));
+  });
 
 app.use(errorHandler);
 
