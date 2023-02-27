@@ -27,8 +27,7 @@ module.exports.uploadFile = function(req, res) {
         error: errorMessage
       });
     }
-    const fileId = req.file.filename.split('-')[0];
-    const link = 'http://' + req.hostname + ':' + process.env.PORT + '/video/' + fileId
+    
     await ffmpeg(req.file.path)
     .screenshots({
       // Will take screens at 20%, 40%, 60% and 80% of the video
