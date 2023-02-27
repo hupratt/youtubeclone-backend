@@ -1,5 +1,7 @@
 require("dotenv").config();
-
+var ffmpeg = require('fluent-ffmpeg');
+var path = require("path");
+const extractFrames = require('ffmpeg-extract-frames')
 const pg = require("pg");
 const { Sequelize, DataTypes } = require("sequelize");
 const UserModel = require("./src/models/User");
@@ -57,21 +59,23 @@ User.hasMany(Subscription, {
 User.belongsToMany(Video, { through: View, foreignKey: "userId" });
 Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
-module.exports = {
-  User,
-  Video,
-  VideoLike,
-  Comment,
-  Subscription,
-  View,
-};
+const relPath='uploads/netgear/Videos/1999 part 2/VTS_01_1.m4v'
+var fileName = path.basename(relPath);
 
-Video.create({
+
+async function asyncCall() {
+  await extractFrames({
+    input: path.join('public/frontend/build/static/',relPath),
+    output: path.join('public/frontend/build/static/', path.dirname(relPath), `${fileName}-frame-%d.png`),
+    numFrames:10
+    })
+
+  Video.create({
     userId: process.env.USER_ID,
     title: 'test',
     description: '',
-    url: 'req.file.path',
-    thumbnail: `test_1.png`
+    url: 'uploads/netgear/Videos/1999 part 2/VTS_01_1.m4v',
+    thumbnail: path.join('static', path.dirname(relPath),`${fileName}-frame-%5.png`),
   }).then(function(item){
     res.json({
       "Message" : "Created item.",
@@ -80,4 +84,11 @@ Video.create({
   }).catch(function (err) {
     console.log(err)
   });
+}
+
+asyncCall();
+
+
+
+
   

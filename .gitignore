@@ -5,4 +5,5 @@ package-lock.json
 *.png
 *.webm
 public/frontend
+public/uploads/*
 uploads/*
