@@ -2,18 +2,20 @@ const path = require('path');
 const fileUploadConfig = require('../../config/file-upload-config').fileUploadConfig;
 const handleDb = require('../../db/handle-db');
 const multer  = require('multer');
+const uuid = require('uuid');
 const {
   Video,
 } = require("../sequelize");
 const asyncHandler = require("../middlewares/asyncHandler");
+var ffmpeg = require('fluent-ffmpeg');
 
-module.exports.initUploadPage = function(req, res) {
-  res.sendFile(path.resolve(__dirname + '/../../public/video_upload_test.html'));
+module.exports.getThumbnail = function(req, res) {
+  res.sendFile(path.resolve(__dirname + `/../../uploads/${req.params.filename}`));
 }
 
 module.exports.uploadFile = function(req, res) {
-  var upload = multer(fileUploadConfig).single('user-file');
-  upload(req, res, function(uploadError){
+  var upload = multer(fileUploadConfig).single('file');
+  upload(req, res, async function(uploadError){
     if(uploadError){
       var errorMessage;
       if(uploadError.code === 'LIMIT_FILE_TYPE') {
@@ -27,64 +29,33 @@ module.exports.uploadFile = function(req, res) {
     }
     const fileId = req.file.filename.split('-')[0];
     const link = 'http://' + req.hostname + ':' + process.env.PORT + '/video/' + fileId
-
-    res.json({
-      success: true,
-      link: link
+    await ffmpeg(req.file.path)
+    .screenshots({
+      // Will take screens at 20%, 40%, 60% and 80% of the video
+      count: 4,
+      folder: 'uploads',
+      filename: `${req.file.originalname}.png` 
     });
-    // const attributesToBeSaved = {
-    //   id: fileId,
-    //   name: req.file.originalname,
-    //   size: req.file.size,
-    //   path: req.file.path,
-    //   encoding: req.file.encoding,
-    //   details: req.body.details ? req.body.details : ''
-    // }
-    const attributesToBeSaved = {
-      id: fileId,
+    const video = await Video.create({
+      id: uuid.v4(),
       title: req.file.originalname,
       description: '',
-      size: req.file.size,
-      path: req.file.path,
-      encoding: req.file.encoding,
-      details: req.body.details ? req.body.details : ''
-    }
-    handleDb.saveToDB(attributesToBeSaved);
-    // return res.send(req.file);
+      url: req.file.path,
+      thumbnail: `${req.file.originalname}_1.png`,
+      createdAt: null,
+      updatedAt: null,
+      userId: req.user.id,
+    });
+    
+    res.status(200).json({ success: true, data: video });
   });
 }
 
+exports.newVideo = asyncHandler(async (req, res, next) => {
+  const video = await Video.create({
+    ...req.body,
+    userId: req.user.id,
+  });
 
-
-// exports.newVideo = asyncHandler(async (req, res, next) => {
-//   const video = await Video.create({
-//     ...req.body,
-//     userId: req.user.id,
-//   });
-
-//   res.status(200).json({ success: true, data: video });
-// });
-
-
-// id: {
-//   type: DataTypes.UUID,
-//   primaryKey: true,
-//   allowNull: false,
-//   defaultValue: Sequelize.UUIDV4,
-// },
-// title: {
-//   type: DataTypes.STRING,
-//   allowNull: false,
-// },
-// description: {
-//   type: DataTypes.STRING,
-// },
-// url: {
-//   type: DataTypes.STRING,
-//   allowNull: false,
-// },
-// thumbnail: {
-//   type: DataTypes.STRING,
-//   allowNull: false,
-// },
-// });
+  res.status(200).json({ success: true, data: video });
+});
