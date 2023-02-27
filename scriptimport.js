@@ -1,7 +1,7 @@
 require("dotenv").config();
 const fs = require('fs');
 const csv = require("fast-csv");
-
+const { EOL } = require('os');
 
 var path = require("path");
 const extractFrames = require('ffmpeg-extract-frames')
@@ -62,28 +62,86 @@ User.hasMany(Subscription, {
 User.belongsToMany(Video, { through: View, foreignKey: "userId" });
 Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
-const options = {
-  objectMode: true,
-  delimiter: ",",
-  quote: null,
-  headers: false,
-  renameHeaders: false,
-};
-const data = [];
 
-async function asyncCallReadCSV() {
-  var stream = fs.createReadStream("migration_data.csv");
-  await csv
-  .parseStream(stream, {headers : false, delimiter: '/n'})
-  .on("data", function(data){
-      console.log('I am one line of data', data.arg1);
-  })
-  .on("end", function(){
-      console.log("done");
-  });
-}
+const LIST_PATHS = [
+  '1963-1984/VTS_01_0.m4v',
+'1963-1984/VTS_01_1.m4v',
+'1963-1984/VTS_01_2.m4v',
+'1963-1984/VTS_01_3.m4v',
+'1999 part 1/VTS_01_3.m4v',
+'1999 part 1/VTS_01_2.m4v',
+'1999 part 1/VTS_01_1.m4v',
+'1999 part 1/VTS_01_4.m4v',
+'1999 part 2/VTS_01_5.m4v',
+'1999 part 2/VTS_01_4.m4v',
+'1999 part 2/VTS_01_3.m4v',
+'1999 part 2/VTS_01_2.m4v',
+'1999 part 2/VTS_01_1.m4v',
+'1999 part 2/VTS_01_1 (copy).m4v',
+'2000/VTS_01_2.m4v',
+'2000/VTS_01_1.m4v',
+'2000/VTS_01_3.m4v',
+'2000/VTS_01_4.m4v',
+'2000/VTS_01_5.m4v',
+'2003/VTS_01_1.m4v',
+'abril 2003/VTS_01_3.m4v',
+'abril 2003/VTS_01_4.m4v',
+'abril 2003/VTS_01_1.m4v',
+'abril 2003/VTS_01_5.m4v',
+'abril 2003/VTS_01_2.m4v',
+'avril 2004/VTS_01_3.m4v',
+'avril 2004/VTS_01_1.m4v',
+'avril 2004/VTS_01_0.m4v',
+'avril 2004/VTS_01_2.m4v',
+'avril 2008/VTS_01_1.m4v',
+'avril 2008/VTS_01_2.m4v',
+'concert 2006/VTS_01_3.m4v',
+'concert 2006/dance.mp4',
+'concert 2006/VTS_01_4.m4v',
+'concert 2006/sara.mp4',
+'concert 2006/VTS_01_2.m4v',
+'concert 2006/VTS_01_1.m4v',
+'dec 2007/VTS_01_3.m4v',
+'dec 2007/VTS_01_1.m4v',
+'dec 2007/VTS_01_2.m4v',
+'jan 2005/Brand Witlock 56_NEW.m4v',
+'mai 2004/VTS_01_2.m4v',
+'mai 2004/VTS_01_1.m4v',
+'mai 2004/VTS_01_4.m4v',
+'mai 2004/VTS_01_3.m4v',
+'mai 2004/VTS_01_5.m4v',
+'natal 2003 part 2/VTS_01_2.m4v',
+'natal 2003 part 2/VTS_01_4.m4v',
+'natal 2003 part 2/VTS_01_3.m4v',
+'natal 2003 part 2/VTS_01_5.m4v',
+'natal 2003 part 2/VTS_01_1.m4v',
+'verao 2004/VTS_01_2.m4v',
+'verao 2004/VTS_01_1.m4v',
+'verao 2004/VTS_01_3.m4v',
+'verao 2004/VTS_01_0.m4v',
+'verao 2004/VTS_01_4.m4v',
+'verao 2004/VTS_01_5.m4v',
+'verao 2005/VTS_01_2.m4v',
+'verao 2005/VTS_01_4.m4v',
+'verao 2005/VTS_01_5.m4v',
+'verao 2005/VTS_01_1.m4v',
+'verao 2005/VTS_01_3.m4v',
+'verao 2006 part 1/VTS_01_4.m4v',
+'verao 2006 part 1/VTS_01_3.m4v',
+'verao 2006 part 1/VTS_01_1.m4v',
+'verao 2006 part 1/VTS_01_2.m4v',
+'verao 2006 part 2/VTS_01_2.m4v',
+'verao 2006 part 2/VTS_01_1 (1).m4v',
+'huh.mp4',
+'2008/VTS_01_1.mp4',
+'2008/VTS_01_2.mp4',
+'2008/VTS_01_1 natal.mp4',
+'2008/VTS_01_2 natal.mp4'
 
-asyncCallReadCSV()
+]
+
+
+
 // var csvData=[];
 // fs.createReadStream(path.join(__dirname,"migration_data.csv"))
 //   .pipe(parse({ delimiter: "," }))
@@ -98,11 +156,11 @@ asyncCallReadCSV()
 //     console.log(error.message);
 //   });
 
-const relPath='uploads/netgear/Videos/1999 part 2/VTS_01_1.m4v'
-var fileName = path.basename(relPath);
 
 
-async function asyncCall() {
+async function asyncCall(relPath) {
+  const fileName = path.basename(relPath);
+
   await extractFrames({
     input: path.join('public/frontend/build/static/',relPath),
     output: path.join('public/frontend/build/static/', path.dirname(relPath), `${fileName}-frame-%d.png`),
@@ -111,10 +169,10 @@ async function asyncCall() {
 
   Video.create({
     userId: process.env.USER_ID,
-    title: 'test',
+    title: relPath.replace('uploads/netgear/Videos/',''),
     description: '',
-    url: 'uploads/netgear/Videos/1999 part 2/VTS_01_1.m4v',
-    thumbnail: path.join('static', path.dirname(relPath),`${fileName}-frame-5.png`),
+    url: relPath,
+    thumbnail: path.join('static', path.dirname(relPath),`${fileName}-frame-8.png`),
   }).then(function(item){
     console.log("Created item.")
   }).catch(function (err) {
@@ -122,9 +180,15 @@ async function asyncCall() {
   });
 }
 
-asyncCall();
 
+const readPaths=()=>{
+  LIST_PATHS.forEach((filepath)=>{
+    asyncCall(path.join('uploads/netgear/Videos',filepath));
 
+  })
+}
+
+readPaths()
 
 
   
