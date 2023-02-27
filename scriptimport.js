@@ -64,17 +64,16 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  'Rihab german lessons/2023-01-25 20-21-03.mp4',
-  'Rihab german lessons/2023-01-31 19-39-23.mp4',
-  'Rihab german lessons/2023-02-03 19-44-10.mp4',
-  'Rihab german lessons/2023-01-24 20-35-52.mp4',
-  'Rihab german lessons/2023-02-27 19-27-29.mp4',
+  "Funny_commercials/Old Spice _ The Man Your Man Could Smell Like-owGykVbfgUE.mp4",
+  "Funny_commercials/11. LE TRÈFLE 'Emma'--rf7khCkhGk.mp4",
+  "Funny_commercials/ASUS - 'Are you into...'-8AfSfhwM0Ko.mp4",
+  "Funny_commercials/Samsung Galaxy Gear smart watch advert the worst commercial of 2013-U8jsDWV8YpQ.mp4",
 ]
 
 
 async function asyncCall(relPath) {
   const fileName = path.basename(relPath);
-
+  // multi thread the creation of thumbnail preview
   await extractFrames({
     input: path.join('public/frontend/build/static/',relPath),
     output: path.join('public/frontend/build/static/', path.dirname(relPath), `${fileName}-frame-%d.png`),
@@ -88,7 +87,7 @@ async function asyncCall(relPath) {
     url: relPath,
     thumbnail: path.join('static', path.dirname(relPath),`${fileName}-frame-8.png`),
   }).then(function(item){
-    console.log("Created item.")
+    console.log(`${fileName} created`)
   }).catch(function (err) {
     console.log(err)
   });
