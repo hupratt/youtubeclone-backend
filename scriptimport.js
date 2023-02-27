@@ -66,18 +66,18 @@ module.exports = {
   View,
 };
 
-
-try {
-
-    const video = Video.create({
-        userId: process.env.USER_ID,
+Video.create({
+    userId: process.env.USER_ID,
     title: 'test',
     description: '',
     url: 'req.file.path',
-    thumbnail: `test_1.png`,
-    createdAt: null,
-    updatedAt: null,
-});
-} catch (e) {
-    console.log(e)
-}
+    thumbnail: `test_1.png`
+  }).then(function(item){
+    res.json({
+      "Message" : "Created item.",
+      "Item" : item
+    });
+  }).catch(function (err) {
+    console.log(err)
+  });
+  
