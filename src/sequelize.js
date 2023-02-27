@@ -8,14 +8,9 @@ const SubscriptionModel = require("./models/Subscription");
 const ViewModel = require("./models/View");
 
 pg.defaults.ssl = true;
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
-  logging: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
+const sequelize = new Sequelize(process.env.DATABASE_NM, process.env.DATABASE_USR, process.env.DATABASE_PW, {
+  host: process.env.DATABASE_HST,
+  dialect: 'postgres'
 });
 (async () => await sequelize.sync({ alter: true }))();
 
