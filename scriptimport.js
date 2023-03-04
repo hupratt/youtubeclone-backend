@@ -64,10 +64,7 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  "Funny_commercials/Old Spice _ The Man Your Man Could Smell Like-owGykVbfgUE.mp4",
-  "Funny_commercials/11. LE TRÈFLE 'Emma'--rf7khCkhGk.mp4",
-  "Funny_commercials/ASUS - 'Are you into...'-8AfSfhwM0Ko.mp4",
-  "Funny_commercials/Samsung Galaxy Gear smart watch advert the worst commercial of 2013-U8jsDWV8YpQ.mp4",
+  "Rihab german lessons/2023-03-02 19-44-03.mp4"
 ]
 
 
@@ -77,7 +74,7 @@ async function asyncCall(relPath) {
   await extractFrames({
     input: path.join('public/frontend/build/static/',relPath),
     output: path.join('public/frontend/build/static/', path.dirname(relPath), `${fileName}-frame-%d.png`),
-    numFrames:10
+    numFrames:1
     })
 
   Video.create({
@@ -85,7 +82,7 @@ async function asyncCall(relPath) {
     title: relPath.replace('uploads/netgear/Videos/',''),
     description: '',
     url: relPath,
-    thumbnail: path.join('static', path.dirname(relPath),`${fileName}-frame-8.png`),
+    thumbnail: path.join('static', path.dirname(relPath),`${fileName}-frame-1.png`),
   }).then(function(item){
     console.log(`${fileName} created`)
   }).catch(function (err) {

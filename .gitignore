@@ -2,7 +2,6 @@ node_modules/
 .env
 package-lock.json
 *.mp4
-*.png
 *.webm
 public/frontend
 public/uploads/*
