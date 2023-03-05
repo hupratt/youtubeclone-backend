@@ -1,6 +1,6 @@
 # Youtube Clone Backend
 
-![Banner](https://github.com/hupratt/youtubeclone-backend/blob/master/Makita.jpg?raw=true)
+![Banner](https://github.com/hupratt/youtubeclone-backend/blob/master/Youtube.jpg?raw=true)
 
 Youtube clone using PERN stack (Postgres, Exprss, React, Node). 
 
