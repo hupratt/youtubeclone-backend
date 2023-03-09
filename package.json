@@ -4,8 +4,8 @@
   "description": "Youtube clone backend using Express + Sequelize",
   "main": "src/server.js",
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider PORT=5001 node src/server",
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider PORT=5001 nodemon src/server"
+    "start": "NODE_OPTIONS=--openssl-legacy-provider node src/server",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider nodemon src/server"
   },
   "author": "Manikandan Raji",
   "license": "MIT",

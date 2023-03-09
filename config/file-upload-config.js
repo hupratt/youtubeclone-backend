@@ -23,7 +23,7 @@ function destinationPath(req, file, callback) {
 }
 
 function fileNameConvention(req, file, callback) {
-  callback(null, Date.now() + '-' + file.originalname.replace(/ /g, '_'));
+  callback(null, file.originalname);
 }
 
 const limits = {
@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
 
 const fileUploadConfig = {
   storage: storage,
-  limits: limits
+  // limits: limits
 };
 
 module.exports.fileUploadConfig = fileUploadConfig;

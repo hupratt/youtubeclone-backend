@@ -14,7 +14,6 @@ const {
 } = require("../controllers/video");
 const videoUploadController = require('../controllers/video-upload-controller');
 
-router.route('/uploads/:filename').get(videoUploadController.getThumbnail);
 router.route('/upload').post(protect, videoUploadController.uploadFile);
 router.route("/").post(protect, newVideo);
 router.route("/").get(recommendedVideos);

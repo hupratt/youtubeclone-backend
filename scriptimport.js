@@ -64,7 +64,8 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  "Rihab german lessons/2023-03-02 19-44-03.mp4"
+  "Rihab_Samsung/1678306910136-20220929_125751.mp4",
+  "Rihab_Samsung/1678306969253-20220930_081550.mp4"
 ]
 
 
@@ -74,7 +75,7 @@ async function asyncCall(relPath) {
   await extractFrames({
     input: path.join('public/frontend/build/static/',relPath),
     output: path.join('public/frontend/build/static/', path.dirname(relPath), `${fileName}-frame-%d.png`),
-    numFrames:1
+    numFrames:10
     })
 
   Video.create({

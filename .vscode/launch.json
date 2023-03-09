@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chromium",
+            "url": "http://localhost:5001",
+            "webRoot": "${workspaceFolder}/src",
+            "trace": true
+          },
+        {
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "request": "attach",
+            "type": "chrome",
+            "urlFilter": "http://localhost:5002/*",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "command": "yarn run dev",
+            "name": "Run yarn run dev",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+
+    ]
+  }

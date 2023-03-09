@@ -18,7 +18,8 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/admin", admin);
 app.use("/api/v1/videos", video);
 app.use("/api/v1/users", user);
-app.use(express.static('public/frontend/build'))
+app.use("/uploads", express.static('public/uploads'))
+app.use("/static", express.static(__dirname +'public/frontend/build/static'))
 app.all('*', function(req, res) {
     const jsonPath = path.join(__dirname, '..', 'public', 'frontend', 'build','index.html');
     res.sendFile(path.resolve(jsonPath));
