@@ -37,7 +37,7 @@ module.exports.uploadFile = function(req, res) {
       id: uuid.v4(),
       title: req.file.originalname,
       description: '',
-      url: req.file.path.replace("public/",""),
+      url: req.file.path.replace("public/static/",""),
       thumbnail: `uploads/${req.file.originalname}_1.png`,
       createdAt: null,
       updatedAt: null,

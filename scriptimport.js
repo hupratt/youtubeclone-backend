@@ -64,8 +64,7 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  "Rihab_Samsung/1678306910136-20220929_125751.mp4",
-  "Rihab_Samsung/1678306969253-20220930_081550.mp4"
+  "Rihab german lessons/2023-03-21 20-03-47.mp4",
 ]
 
 
