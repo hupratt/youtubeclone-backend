@@ -9,14 +9,14 @@ exports.signup = asyncHandler(async (req, res, next) => {
 
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
-  await user.save();
+  //await user.save();
 
   const payload = { id: user.id };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 
-  res.status(200).json({ success: true, data: token });
+  //res.status(200).json({ success: true, data: token });
 });
 
 exports.login = async (req, res, next) => {
