@@ -46,83 +46,87 @@ exports.getVideo = asyncHandler(async (req, res, next) => {
     ],
   });
 
-  const isLiked = await VideoLike.findOne({
-    where: {
-      [Op.and]: [
-        { videoId: req.params.id },
-        { userId: req.user.id },
-        { like: 1 },
-      ],
-    },
-  });
+  if (req.user) {
+    const isLiked = await VideoLike.findOne({
+      where: {
+        [Op.and]: [
+          { videoId: req.params.id },
+          { userId: req.user.id },
+          { like: 1 },
+        ],
+      },
+    });
 
-  const isDisliked = await VideoLike.findOne({
-    where: {
-      [Op.and]: [
-        { videoId: req.params.id },
-        { userId: req.user.id },
-        { like: -1 },
-      ],
-    },
-  });
+    const isDisliked = await VideoLike.findOne({
+      where: {
+        [Op.and]: [
+          { videoId: req?.params.id },
+          { userId: req?.user.id },
+          { like: -1 },
+        ],
+      },
+    });
 
-  const commentsCount = await Comment.count({
-    where: {
-      videoId: req.params.id,
-    },
-  });
+    const commentsCount = await Comment.count({
+      where: {
+        videoId: req?.params.id,
+      },
+    });
 
-  const likesCount = await VideoLike.count({
-    where: {
-      [Op.and]: [{ videoId: req.params.id }, { like: 1 }],
-    },
-  });
+    const likesCount = await VideoLike.count({
+      where: {
+        [Op.and]: [{ videoId: req?.params.id }, { like: 1 }],
+      },
+    });
 
-  const dislikesCount = await VideoLike.count({
-    where: {
-      [Op.and]: [{ videoId: req.params.id }, { like: -1 }],
-    },
-  });
+    const dislikesCount = await VideoLike.count({
+      where: {
+        [Op.and]: [{ videoId: req?.params.id }, { like: -1 }],
+      },
+    });
 
-  const views = await View.count({
-    where: {
-      videoId: req.params.id,
-    },
-  });
+    const views = await View.count({
+      where: {
+        videoId: req?.params.id,
+      },
+    });
 
-  const isSubscribed = await Subscription.findOne({
-    where: {
-      subscriber: req.user.id,
-      subscribeTo: video.userId,
-    },
-  });
+    const isSubscribed = await Subscription.findOne({
+      where: {
+        subscriber: req?.user.id,
+        subscribeTo: video.userId,
+      },
+    });
 
-  const isViewed = await View.findOne({
-    where: {
-      userId: req.user.id,
-      videoId: video.id,
-    },
-  });
+    const isViewed = await View.findOne({
+      where: {
+        userId: req?.user.id,
+        videoId: video.id,
+      },
+    });
 
-  const subscribersCount = await Subscription.count({
-    where: { subscribeTo: video.userId },
-  });
+    const subscribersCount = await Subscription.count({
+      where: { subscribeTo: video.userId },
+    });
 
-  const isVideoMine = req.user.id === video.userId;
+    let isVideoMine;
+    if (req?.user) {
+      isVideoMine = req?.user.id === video.userId;
+    }
 
-  // likesCount, disLikesCount, views
-  video.setDataValue("comments", comments);
-  video.setDataValue("commentsCount", commentsCount);
-  video.setDataValue("isLiked", !!isLiked);
-  video.setDataValue("isDisliked", !!isDisliked);
-  video.setDataValue("likesCount", likesCount);
-  video.setDataValue("dislikesCount", dislikesCount);
-  video.setDataValue("views", views);
-  video.setDataValue("isVideoMine", isVideoMine);
-  video.setDataValue("isSubscribed", !!isSubscribed);
-  video.setDataValue("isViewed", !!isViewed);
-  video.setDataValue("subscribersCount", subscribersCount);
-
+    // likesCount, disLikesCount, views
+    video.setDataValue("comments", comments);
+    video.setDataValue("commentsCount", commentsCount);
+    video.setDataValue("isLiked", !!isLiked);
+    video.setDataValue("isDisliked", !!isDisliked);
+    video.setDataValue("likesCount", likesCount);
+    video.setDataValue("dislikesCount", dislikesCount);
+    video.setDataValue("views", views);
+    video.setDataValue("isVideoMine", isVideoMine);
+    video.setDataValue("isSubscribed", !!isSubscribed);
+    video.setDataValue("isViewed", !!isViewed);
+    video.setDataValue("subscribersCount", subscribersCount);
+  }
   res.status(200).json({ success: true, data: video });
 });
 
