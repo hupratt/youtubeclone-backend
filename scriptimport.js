@@ -100,6 +100,3 @@ const readPaths=()=>{
 }
 
 readPaths()
-
-
-  

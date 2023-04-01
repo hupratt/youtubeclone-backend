@@ -243,29 +243,28 @@ exports.addComment = asyncHandler(async (req, res, next) => {
 
 exports.newView = asyncHandler(async (req, res, next) => {
   const video = await Video.findByPk(req.params.id);
-
   if (!video) {
     return next({
       message: `No video found for ID - ${req.params.id}`,
       statusCode: 404,
     });
   }
-
+  // console.log('=== req.user.id video.js [253] ===', req.headers.userid);
   const viewed = await View.findOne({
     where: {
-      userId: req.user.id,
+      userId: req.headers.userid,
       videoId: req.params.id,
     },
   });
-
+  
   if (viewed) {
     return next({ message: "You already viewed this video", statusCode: 400 });
   }
-
   await View.create({
-    userId: req.user.id,
+    userId: req.headers.userid,
     videoId: req.params.id,
   });
+  
 
   res.status(200).json({ success: true, data: {} });
 });
