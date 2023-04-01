@@ -70,6 +70,8 @@ async function asyncCall(filepath) {
   const fileName = path.basename(relPath);
   const baseName = path.dirname(filepath)
   // multi thread the creation of thumbnail preview
+  console.log('=== input scriptimport.js [73] ===', relPath);
+  console.log('=== output scriptimport.js [73] ===', path.join(path.dirname(relPath), `${fileName}-frame-%d.png`));
   await extractFrames({
     input: relPath,
     output: path.join(path.dirname(relPath), `${fileName}-frame-%d.png`),
@@ -78,7 +80,7 @@ async function asyncCall(filepath) {
 
   Video.create({
     userId: process.env.USER_ID,
-    title: relPath.replace('public/frontend/build/static/uploads/Videos',''),
+    title: filepath,
     description: '',
     url: `uploads/netgear/Videos/${filepath}`,
     thumbnail: path.join('static/uploads/netgear/Videos/',baseName,`${fileName}-frame-1.png`),
