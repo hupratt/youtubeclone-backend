@@ -258,7 +258,7 @@ exports.newView = asyncHandler(async (req, res, next) => {
   });
   
   if (viewed) {
-    return next({ message: "You already viewed this video", statusCode: 400 });
+    return next({ message: "You already viewed this video", statusCode: 200 });
   }
   await View.create({
     userId: req.headers.userid,
