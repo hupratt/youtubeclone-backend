@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "NODE_OPTIONS=--openssl-legacy-provider node src/server",
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider nodemon src/server"
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider nodemon src/server --ignore public/uploads --ignore public/frontend/build/static/uploads"
   },
   "author": "Manikandan Raji",
   "license": "MIT",

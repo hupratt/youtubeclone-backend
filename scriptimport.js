@@ -15,17 +15,10 @@ const SubscriptionModel = require("./src/models/Subscription");
 const ViewModel = require("./src/models/View");
 const uuid = require('uuid');
 
-pg.defaults.ssl = true;
 const sequelize = new Sequelize(process.env.DATABASE_NM, process.env.DATABASE_USR, process.env.DATABASE_PW, {
   host: process.env.DATABASE_HST,
   dialect: 'postgres',
-  logging: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  }
+  logging: false
 });
 (async () => await sequelize.sync({ alter: true }))();
 
@@ -64,25 +57,31 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  "Rihab german lessons/2023-03-21 20-03-47.mp4",
+  "Funny_commercials/Ricky Gervais On Teaching Morals To Children BEST OF Politics Universal Comedy.mp4",
+// "Funny_commercials/Ricky Gervais at the Golden Globes 2020 - All of his bits chained.mp4",
+// "Funny_commercials/Ricky Gervais Out Of England 2 - The Stand Up Special (Full show in 720p with English captions).mp4",
+// "Funny_commercials/Politically Incorrect Jokes - Ricky Gervais..mp4",
+// "Funny_commercials/Ricky Gervais (animal facts).mp4"
 ]
 
 
-async function asyncCall(relPath) {
+async function asyncCall(filepath) {
+  const relPath = path.join('public/frontend/build/static/uploads/netgear/Videos',filepath)
   const fileName = path.basename(relPath);
+  const baseName = path.dirname(filepath)
   // multi thread the creation of thumbnail preview
   await extractFrames({
-    input: path.join('public/frontend/build/static/',relPath),
-    output: path.join('public/frontend/build/static/', path.dirname(relPath), `${fileName}-frame-%d.png`),
-    numFrames:10
+    input: relPath,
+    output: path.join(path.dirname(relPath), `${fileName}-frame-%d.png`),
+    numFrames:1
     })
 
   Video.create({
     userId: process.env.USER_ID,
-    title: relPath.replace('uploads/netgear/Videos/',''),
+    title: relPath.replace('public/frontend/build/static/uploads/Videos',''),
     description: '',
-    url: relPath,
-    thumbnail: path.join('static', path.dirname(relPath),`${fileName}-frame-1.png`),
+    url: `uploads/netgear/Videos/${filepath}`,
+    thumbnail: path.join('static/uploads/netgear/Videos/',baseName,`${fileName}-frame-1.png`),
   }).then(function(item){
     console.log(`${fileName} created`)
   }).catch(function (err) {
@@ -93,7 +92,7 @@ async function asyncCall(relPath) {
 
 const readPaths=()=>{
   LIST_PATHS.forEach((filepath)=>{
-    asyncCall(path.join('uploads/netgear/Videos',filepath));
+    asyncCall(filepath);
 
   })
 }
