@@ -45,62 +45,70 @@ exports.getVideo = asyncHandler(async (req, res, next) => {
       },
     ],
   });
-
-  if (req.user) {
+  // console.log('=== comments video.js [48] ===', comments);
+  const user = JSON.parse(req.headers.user);
+  // console.log('=== user video.js [51] ===', user);
+  if (user) {
     const isLiked = await VideoLike.findOne({
       where: {
         [Op.and]: [
           { videoId: req.params.id },
-          { userId: req.user.id },
+          { userId: user.id },
           { like: 1 },
         ],
       },
     });
+    // console.log('=== isLiked video.js [59] ===', isLiked);
 
     const isDisliked = await VideoLike.findOne({
       where: {
         [Op.and]: [
           { videoId: req?.params.id },
-          { userId: req?.user.id },
+          { userId: user.id },
           { like: -1 },
         ],
       },
     });
+    // console.log('=== isDisliked video.js [70] ===', isDisliked);
 
     const commentsCount = await Comment.count({
       where: {
         videoId: req?.params.id,
       },
     });
+    // console.log('=== commentsCount video.js [77] ===', commentsCount);
 
     const likesCount = await VideoLike.count({
       where: {
         [Op.and]: [{ videoId: req?.params.id }, { like: 1 }],
       },
     });
+    // console.log('=== likesCount video.js [84] ===', likesCount);
 
     const dislikesCount = await VideoLike.count({
       where: {
         [Op.and]: [{ videoId: req?.params.id }, { like: -1 }],
       },
     });
+    // console.log('=== dislikesCount video.js [91] ===', dislikesCount);
 
     const views = await View.count({
       where: {
         videoId: req?.params.id,
       },
     });
+    // console.log('=== views video.js [98] ===', views);
 
     const isSubscribed = await Subscription.findOne({
       where: {
-        subscriber: req?.user.id,
+        subscriber: user.id,
         subscribeTo: video.userId,
       },
     });
 
     const isViewed = await View.findOne({
       where: {
-        userId: req?.user.id,
+        userId: user.id,
         videoId: video.id,
       },
     });
@@ -108,11 +116,6 @@ exports.getVideo = asyncHandler(async (req, res, next) => {
     const subscribersCount = await Subscription.count({
       where: { subscribeTo: video.userId },
     });
-
-    let isVideoMine;
-    if (req?.user) {
-      isVideoMine = req?.user.id === video.userId;
-    }
 
     // likesCount, disLikesCount, views
     video.setDataValue("comments", comments);
@@ -122,7 +125,6 @@ exports.getVideo = asyncHandler(async (req, res, next) => {
     video.setDataValue("likesCount", likesCount);
     video.setDataValue("dislikesCount", dislikesCount);
     video.setDataValue("views", views);
-    video.setDataValue("isVideoMine", isVideoMine);
     video.setDataValue("isSubscribed", !!isSubscribed);
     video.setDataValue("isViewed", !!isViewed);
     video.setDataValue("subscribersCount", subscribersCount);
