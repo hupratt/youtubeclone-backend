@@ -57,27 +57,27 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  "2002/Concerto/MOV00284.MPG",
-  "2002/Concerto/MOV00285.MPG",
-  "2002/Concerto/MOV00286.MPG",
-  "2002/Concerto/MOV00287.MPG",
-  "2002/Concerto/MOV00288.MPG",
-  "2002/Concerto/MOV00289.MPG",
-  "2002/Concerto/MOV00291.MPG",
-  "2002/Concerto/MOV00299.MPG",
-  "2002/Concerto/MOV00303.MPG",
-  "2002/Concerto/MOV00304.MPG",
-  "2002/Concerto/MOV00305.MPG",
-  "2002/Concerto/MOV00306.MPG",
-  "2002/Concerto/MOV00307.MPG",
+  "2002/Concerto/MOV00284.mp4",
+  "2002/Concerto/MOV00285.mp4",
+  "2002/Concerto/MOV00286.mp4",
+  "2002/Concerto/MOV00287.mp4",
+  "2002/Concerto/MOV00288.mp4",
+  "2002/Concerto/MOV00289.mp4",
+  "2002/Concerto/MOV00291.mp4",
+  "2002/Concerto/MOV00299.mp4",
+  "2002/Concerto/MOV00303.mp4",
+  "2002/Concerto/MOV00304.mp4",
+  "2002/Concerto/MOV00305.mp4",
+  "2002/Concerto/MOV00306.mp4",
+  "2002/Concerto/MOV00307.mp4",
   "2002/2002.mp4",
-  "2002/MOV00216.MPG",
-  "2002/MOV00234.MPG",
-  "2002/MOV00244.MPG",
-  "2002/MOV00247.MPG",
-  "2002/MOV00250.MPG",
-  "2002/MOV00251.MPG",
-  "2002/MOV00261.MPG"
+  "2002/MOV00216.mp4",
+  "2002/MOV00234.mp4",
+  "2002/MOV00244.mp4",
+  "2002/MOV00247.mp4",
+  "2002/MOV00250.mp4",
+  "2002/MOV00251.mp4",
+  "2002/MOV00261.mp4"
 ]
 
 
