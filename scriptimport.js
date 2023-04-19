@@ -57,11 +57,27 @@ Video.belongsToMany(User, { through: View, foreignKey: "videoId" });
 
 
 const LIST_PATHS = [
-  "chirpy/2023-04-05 22-31-03.mp4",
-// "Funny_commercials/Ricky Gervais at the Golden Globes 2020 - All of his bits chained.mp4",
-// "Funny_commercials/Ricky Gervais Out Of England 2 - The Stand Up Special (Full show in 720p with English captions).mp4",
-// "Funny_commercials/Politically Incorrect Jokes - Ricky Gervais..mp4",
-// "Funny_commercials/Ricky Gervais (animal facts).mp4"
+  "2002/Concerto/MOV00284.MPG",
+  "2002/Concerto/MOV00285.MPG",
+  "2002/Concerto/MOV00286.MPG",
+  "2002/Concerto/MOV00287.MPG",
+  "2002/Concerto/MOV00288.MPG",
+  "2002/Concerto/MOV00289.MPG",
+  "2002/Concerto/MOV00291.MPG",
+  "2002/Concerto/MOV00299.MPG",
+  "2002/Concerto/MOV00303.MPG",
+  "2002/Concerto/MOV00304.MPG",
+  "2002/Concerto/MOV00305.MPG",
+  "2002/Concerto/MOV00306.MPG",
+  "2002/Concerto/MOV00307.MPG",
+  "2002/2002.mp4",
+  "2002/MOV00216.MPG",
+  "2002/MOV00234.MPG",
+  "2002/MOV00244.MPG",
+  "2002/MOV00247.MPG",
+  "2002/MOV00250.MPG",
+  "2002/MOV00251.MPG",
+  "2002/MOV00261.MPG"
 ]
 
 
